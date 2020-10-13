@@ -6,21 +6,21 @@ exports.audioPacks = {
         key: 1,
         queryKey: 'water',
         name: 'Water',
-        icon: require('../assets/images/bus.svg'),
+        icon: require('../assets/images/water.svg'),
         audioSrc: 'http://21273.live.streamtheworld.com/LOS40_DANCE.mp3'
       },
       {
         key: 2,
         queryKey: 'wind',
         name: 'Wind',
-        icon: require('../assets/images/bus.svg'),
+        icon: require('../assets/images/wind.svg'),
         audioSrc: 'https://21233.live.streamtheworld.com/LOS40_URBANAAC.aac'
       },
       {
         key: 3,
         queryKey: 'camp-fire',
         name: 'Campfire',
-        icon: require('../assets/images/bus.svg'),
+        icon: require('../assets/images/fire.svg'),
         audioSrc: 'https://22713.live.streamtheworld.com/LOS40_CLASSICAAC.aac'
       },
       {
