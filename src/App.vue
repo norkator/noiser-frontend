@@ -1,17 +1,53 @@
 <template>
   <div id="app-container">
     <the-header app-name="Noiser"/>
-
     <section class="mainContentLayout magictime slideDownReturn">
-      <audio-component
-        v-for="as in audioSources" v-bind:key="as.key"
-        :audio-key="as.key"
-        :query-key="as.queryKey"
-        :name="as.name"
-        :audio-src="as.audioSrc"
-      />
-    </section>
 
+      <div>
+        <h2 class="packName">{{audioSources.winterPack.name}}</h2>
+        <div v-if="audioSources.winterPack.audioSources.length > 0" class="flexLayout">
+          <audio-component
+            v-for="as in audioSources.winterPack.audioSources" v-bind:key="as.key"
+            :audio-key="as.key"
+            :query-key="as.queryKey"
+            :name="as.name"
+            :audio-src="as.audioSrc"
+          />
+        </div>
+        <h4 v-else class="packNoSounds">Sounds coming</h4>
+      </div>
+      <hr>
+      <div>
+        <h2 class="packName">{{audioSources.summerPack.name}}</h2>
+        <div v-if="audioSources.summerPack.audioSources.length > 0" class="flexLayout">
+          <audio-component
+            v-for="as in audioSources.summerPack.audioSources" v-bind:key="as.key"
+            :audio-key="as.key"
+            :query-key="as.queryKey"
+            :name="as.name"
+            :audio-src="as.audioSrc"
+          />
+        </div>
+        <h4 v-else class="packNoSounds">Sounds coming</h4>
+      </div>
+      <hr>
+      <div>
+        <h2 class="packName">{{audioSources.other.name}}</h2>
+        <div v-if="audioSources.other.audioSources.length > 0" class="flexLayout">
+          <audio-component
+            v-for="as in audioSources.other.audioSources" v-bind:key="as.key"
+            :audio-key="as.key"
+            :query-key="as.queryKey"
+            :name="as.name"
+            :audio-src="as.audioSrc"
+          />
+        </div>
+        <h4 v-else class="packNoSounds">Sounds coming</h4>
+      </div>
+
+
+
+    </section>
     <the-footer/>
   </div>
 </template>
@@ -19,8 +55,9 @@
 <script>
   import TheHeader from "./components/TheHeader.vue";
   import AudioComponent from "./components/AudioComponent.vue";
-  import AudioSource from './assets/AudioSource';
   import TheFooter from "./components/TheFooter.vue";
+
+  import AudioPack from './assets/AudioPack';
 
 
   export default {
@@ -32,7 +69,7 @@
     },
     data() {
       return {
-        audioSources: AudioSource.audioSources
+        audioSources: AudioPack.audioPacks
       }
     },
     mounted() {
@@ -59,18 +96,41 @@
     overflow: hidden;
     display: block;
     position: relative;
-
   }
 
   .mainContentLayout {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    text-align: center;
     border-radius: 20px;
     margin: 20px 20px 60px 20px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 25px 0 rgba(255, 255, 255, 0.1);
   }
+
+  .flexLayout {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .packName {
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 28px;
+    color: white;
+  }
+
+  .packNoSounds {
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 14px;
+    color: white;
+  }
+
+  hr {
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    margin: 0 20px 0 20px;
+    border-radius: 5px;
+  }
+
 </style>
