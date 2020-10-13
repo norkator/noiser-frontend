@@ -72,8 +72,7 @@
 <style scoped>
 
   .mainAudioLayout {
-    margin: 10px;
-    padding: 25px;
+    margin: 15px;
     align-items: center;
     justify-content: center;
     flex-flow: column;
@@ -117,7 +116,7 @@
   .player-container {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    min-width: 100px;
+    min-width: 130px;
     max-width: 150px;
     height: 80px;
     background: #2c3e50;
