@@ -22,7 +22,7 @@
     left: 0;
     right: 0;
     width: 100%;
-    height: 2.5rem; /* Footer height */
+    height: 2.3rem; /* Footer height */
   }
 
   small {
