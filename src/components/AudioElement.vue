@@ -2,9 +2,14 @@
   <div class="mainAudioLayout">
 
     <div class="player-container">
-      <span @click="openAudioView" :class="isOpen ? 'player-container-span-open' : ''">
-        <img class="icon" src="../assets/images/bus.svg" alt="icon"> {{ this.name }}
-      </span>
+      <div class="player-container-content" @click="openAudioView" :class="isOpen ? 'player-container-span-open' : ''">
+        <div>
+          <!--suppress HtmlUnknownTarget -->
+          <img class="icon" :src="this.icon" alt="icon">
+          <br>
+          <span>{{ this.name }}</span>
+        </div>
+      </div>
       <div>
         <small style="color: white">Volume {{ this.volume }}%</small>
         <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
@@ -19,7 +24,7 @@
   export default {
     name: "AudioComponent",
     props: [
-      'audioKey', 'queryKey', 'name', 'audioSrc'
+      'audioKey', 'queryKey', 'name', 'icon', 'audioSrc'
     ],
     data() {
       return {
@@ -76,8 +81,6 @@
     align-items: center;
     justify-content: center;
     flex-flow: column;
-    /* background-color: rgba(0, 0, 0, 0.1); */
-    /* box-shadow: 0 0 0 1px inset rgba(43, 43, 43, 0.3); */
     border-radius: 10px;
   }
 
@@ -135,35 +138,29 @@
     transform: scale(1.1);
   }
 
-  .player-container span {
+  .player-container-content {
     position: absolute;
     width: 100%;
     height: 100%;
     background: #2d3436;
     color: #f1f1f1;
     text-align: center;
-    line-height: 80px;
     z-index: 999;
     transition: .4s linear;
     border-radius: 40px;
     font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 16px;
+    padding-top: 8%;
   }
 
-  .player-container span img {
-    width: 30px;
-    position: absolute;
-    height: 100%;
-    text-align: center;
-    line-height: 80px;
-    transition: .4s linear;
-    border-radius: 40px;
-    margin-left: -30px;
+  .player-container img {
+    width: 35px;
   }
 
 
   /*.player-container:hover span{ */
   .player-container-span-open {
-    transform: translateX(-95%);
+    transform: translateX(-90%);
     transition-delay: .1s;
   }
 

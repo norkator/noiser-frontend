@@ -11,6 +11,7 @@
             :audio-key="as.key"
             :query-key="as.queryKey"
             :name="as.name"
+            :icon="as.icon"
             :audio-src="as.audioSrc"
           />
         </div>
@@ -25,6 +26,7 @@
             :audio-key="as.key"
             :query-key="as.queryKey"
             :name="as.name"
+            :icon="as.icon"
             :audio-src="as.audioSrc"
           />
         </div>
@@ -39,6 +41,7 @@
             :audio-key="as.key"
             :query-key="as.queryKey"
             :name="as.name"
+            :icon="as.icon"
             :audio-src="as.audioSrc"
           />
         </div>
