@@ -6,7 +6,7 @@
       <div>
         <h2 class="packName">{{audioSources.winterPack.name}}</h2>
         <div v-if="audioSources.winterPack.audioSources.length > 0" class="flexLayout">
-          <audio-component
+          <audio-element
             v-for="as in audioSources.winterPack.audioSources" v-bind:key="as.key"
             :audio-key="as.key"
             :query-key="as.queryKey"
@@ -20,7 +20,7 @@
       <div>
         <h2 class="packName">{{audioSources.summerPack.name}}</h2>
         <div v-if="audioSources.summerPack.audioSources.length > 0" class="flexLayout">
-          <audio-component
+          <audio-element
             v-for="as in audioSources.summerPack.audioSources" v-bind:key="as.key"
             :audio-key="as.key"
             :query-key="as.queryKey"
@@ -34,7 +34,7 @@
       <div>
         <h2 class="packName">{{audioSources.other.name}}</h2>
         <div v-if="audioSources.other.audioSources.length > 0" class="flexLayout">
-          <audio-component
+          <audio-element
             v-for="as in audioSources.other.audioSources" v-bind:key="as.key"
             :audio-key="as.key"
             :query-key="as.queryKey"
@@ -54,7 +54,7 @@
 
 <script>
   import TheHeader from "./components/TheHeader.vue";
-  import AudioComponent from "./components/AudioComponent.vue";
+  import AudioElement from "./components/AudioElement.vue";
   import TheFooter from "./components/TheFooter.vue";
 
   import AudioPack from './assets/AudioPack';
@@ -64,7 +64,7 @@
     name: 'App',
     components: {
       TheHeader,
-      AudioComponent,
+      AudioElement,
       TheFooter,
     },
     data() {
