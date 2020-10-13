@@ -7,33 +7,35 @@
 </template>
 
 <script>
-export default {
-  props: [
-    'appName'
-  ],
-  name: "TheHeader"
-}
+  export default {
+    props: [
+      'appName'
+    ],
+    name: "TheHeader"
+  }
 </script>
 
 <style scoped>
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 2.5rem;            /* Footer height */
-}
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2.5rem; /* Footer height */
+  }
 
-small {
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  font-size: 16px;
-  margin-block-start: 0;
-  margin-block-end: 0;
-}
+  small {
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 16px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
 
-.headerBar {
-  background-color: white;
-  text-align: center;
-  padding: 9px;
-}
+  .headerBar {
+    background-color: white;
+    text-align: center;
+    padding: 9px;
+  }
 
 </style>

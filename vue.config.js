@@ -1,3 +1,11 @@
 module.exports = {
-  publicPath: '/results/'
-}
+  publicPath: '/',
+  chainWebpack: config => {
+    config
+        .plugin('html')
+        .tap(args => {
+          args[0].title = 'Noiser';
+          return args
+        })
+  }
+};
