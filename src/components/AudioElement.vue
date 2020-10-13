@@ -11,7 +11,8 @@
         </div>
       </div>
       <div>
-        <small style="color: white">Volume {{ this.volume }}%</small>
+        <small class="smallSoundName" style="font-size: 16px">{{ this.name }}</small><br>
+        <small class="smallSoundName">Volume {{ this.volume }}%</small>
         <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
       </div>
       <br>
@@ -162,6 +163,16 @@
   .player-container-span-open {
     transform: translateX(-90%);
     transition-delay: .1s;
+  }
+
+  .player-container-span-open:hover {
+    background: whitesmoke;
+  }
+
+  .smallSoundName {
+    color: white;
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 12px;
   }
 
 
