@@ -33,3 +33,5 @@ Icon origins
 * `fire.svg` => https://freeicons.io/ios-edge-glyph/fire-icon-29384
 * `water.svg` => https://freeicons.io/weather-3/weather-forecast-heavy-rain-water-cloud-icon-44430
 * `wind.svg` => https://freeicons.io/business-and-online-icons/wind-icon-5300
+* `tower.svg` => https://freeicons.io/farm/farm-water-tower-icon-42569
+

@@ -4,10 +4,10 @@
     <section class="mainContentLayout magictime slideDownReturn">
 
       <div>
-        <h2 class="packName">{{audioSources.winterPack.name}}</h2>
-        <div v-if="audioSources.winterPack.audioSources.length > 0" class="flexLayout">
+        <h2 class="packName">{{audioSources.summerPack.name}}</h2>
+        <div v-if="audioSources.summerPack.audioSources.length > 0" class="flexLayout">
           <audio-element
-            v-for="as in audioSources.winterPack.audioSources" v-bind:key="as.key"
+            v-for="as in audioSources.summerPack.audioSources" v-bind:key="as.key"
             :audio-key="as.key"
             :query-key="as.queryKey"
             :name="as.name"
@@ -19,10 +19,10 @@
       </div>
       <hr>
       <div>
-        <h2 class="packName">{{audioSources.summerPack.name}}</h2>
-        <div v-if="audioSources.summerPack.audioSources.length > 0" class="flexLayout">
+        <h2 class="packName">{{audioSources.winterPack.name}}</h2>
+        <div v-if="audioSources.winterPack.audioSources.length > 0" class="flexLayout">
           <audio-element
-            v-for="as in audioSources.summerPack.audioSources" v-bind:key="as.key"
+            v-for="as in audioSources.winterPack.audioSources" v-bind:key="as.key"
             :audio-key="as.key"
             :query-key="as.queryKey"
             :name="as.name"
