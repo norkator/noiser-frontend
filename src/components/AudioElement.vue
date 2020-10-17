@@ -42,11 +42,19 @@
       initAudioPlayer() {
         const that = this;
         this.player = new Audio(this.audioSrc);
+        // this.player.loop = true; // This is not gap less
         let volume = document.querySelector("#" + this.queryKey + "-volume-control");
         volume.addEventListener("change", function (e) {
           const c = e.currentTarget.value / 100;
           that.player.volume = c;
           that.volume = Number(c * 100).toFixed(0);
+        });
+        this.player.addEventListener('timeupdate', function () {
+          const buffer = .44;
+          if (this.currentTime > this.duration - buffer) {
+            this.currentTime = 0;
+            this.play();
+          }
         });
       },
       startAudio() {
