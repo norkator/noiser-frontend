@@ -55,6 +55,13 @@ exports.audioPacks = {
         icon: require('./images/house.svg'),
         audioSrc: require('../assets/audio/waterheater1.mp3')
       },
+      {
+        key: 3,
+        queryKey: 'dishwasher-one',
+        name: 'Dishwasher#1',
+        icon: require('./images/water.svg'),
+        audioSrc: require('../assets/audio/dishwasher1.mp3')
+      },
     ]
   },
 };
