@@ -29,7 +29,7 @@ pipeline {
             branch 'master'
           }
           steps {
-            bat 'npm run build'
+            sshPublisher(publishers: [sshPublisherDesc(configName: 'RASP TRE', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'echo ""', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'noiser/', remoteDirectorySDF: false, removePrefix: 'dist/', sourceFiles: 'dist/**/**')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
           }
     }
 
