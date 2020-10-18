@@ -35,3 +35,9 @@ Icon origins
 * `wind.svg` => https://freeicons.io/business-and-online-icons/wind-icon-5300
 * `tower.svg` => https://freeicons.io/farm/farm-water-tower-icon-42569
 
+* `sauna.svg` => https://www.flaticon.com/free-icon/sauna_628468?term=sauna&page=1&position=21
+* `coffeemachine.svg` => https://www.flaticon.com/free-icon/coffee-machine_1268838?term=coffee&page=1&position=61
+* `dishwasher.svg` => https://www.flaticon.com/free-icon/dishwasher_3134806?term=dish%20washer&page=1&position=27
+* `fridge.svg` => https://www.flaticon.com/free-icon/fridge_712035?term=fridge&page=1&position=28
+
+

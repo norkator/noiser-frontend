@@ -34,6 +34,22 @@
       </div>
       <hr>
       <div>
+        <h2 class="packName">{{audioSources.homePack.name}}</h2>
+        <div v-if="audioSources.homePack.audioSources.length > 0" class="flexLayout">
+          <audio-element
+            v-for="as in audioSources.homePack.audioSources" v-bind:key="as.key"
+            :audio-key="as.key"
+            :query-key="as.queryKey"
+            :name="as.name"
+            :icon="as.icon"
+            :audio-src="as.audioSrc"
+          />
+        </div>
+        <h4 v-else class="packNoSounds">Sounds coming</h4>
+      </div>
+
+      <hr>
+      <div>
         <h2 class="packName">{{audioSources.other.name}}</h2>
         <div v-if="audioSources.other.audioSources.length > 0" class="flexLayout">
           <audio-element
