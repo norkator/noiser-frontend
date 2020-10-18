@@ -47,7 +47,6 @@
         </div>
         <h4 v-else class="packNoSounds">Sounds coming</h4>
       </div>
-
       <hr>
       <div>
         <h2 class="packName">{{audioSources.other.name}}</h2>
@@ -63,8 +62,9 @@
         </div>
         <h4 v-else class="packNoSounds">Sounds coming</h4>
       </div>
-
-
+      <hr>
+      <h4 class="packNoSounds"><a style="color: white;" href="http://www.nitramite.com/noiser.html">Click here</a> for asset attribution notes</h4>
+      <hr>
 
     </section>
     <the-footer/>
