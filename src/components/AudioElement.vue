@@ -13,7 +13,9 @@
       <div>
         <small class="smallSoundName" style="font-size: 16px">{{ this.name }}</small><br>
         <small class="smallSoundName">Volume {{ this.volume }}%</small>
-        <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
+        <label aria-describedby="Change sound volume">
+          <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
+        </label>
       </div>
       <br>
     </div>
