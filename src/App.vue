@@ -1,8 +1,18 @@
 <template>
   <div id="app-container">
     <the-header app-name="Noiser"/>
-    <section class="mainContentLayout magictime slideDownReturn">
 
+    <div class="update-dialog" v-if="showUpdateUI">
+      <div class="update-dialog__content">
+        A new version is available. Refresh now to activate?
+      </div>
+      <div class="update-dialog__actions">
+        <button class="button" @click="update">Update</button>
+        <button class="button" @click="showUpdateUI = false">Cancel</button>
+      </div>
+    </div>
+
+    <section class="mainContentLayout magictime slideDownReturn">
       <div>
         <h2 class="packName">{{audioSources.summerPack.name}}</h2>
         <div v-if="audioSources.summerPack.audioSources.length > 0" class="flexLayout">
@@ -63,7 +73,12 @@
         <h4 v-else class="packNoSounds">Sounds coming</h4>
       </div>
       <hr>
-      <h4 class="packNoSounds"><a style="color: white;" href="http://www.nitramite.com/noiser.html">Click here</a> for asset attribution notes</h4>
+      <h2 class="packName">Links</h2>
+      <h4 class="packNoSounds">Download <a style="color: white;"
+                                           href="https://play.google.com/store/apps/details?id=com.nitramite.noiser">Android
+        App</a> here</h4>
+      <h4 class="packNoSounds"><a style="color: white;" href="http://www.nitramite.com/noiser.html">Click here</a> for
+        asset attribution notes</h4>
       <hr>
 
     </section>
@@ -75,9 +90,7 @@
   import TheHeader from "./components/TheHeader.vue";
   import AudioElement from "./components/AudioElement.vue";
   import TheFooter from "./components/TheFooter.vue";
-
   import AudioPack from './assets/AudioPack';
-
 
   export default {
     name: 'App',
@@ -88,12 +101,25 @@
     },
     data() {
       return {
-        audioSources: AudioPack.audioPacks
+        audioSources: AudioPack.audioPacks,
+        showUpdateUI: false,
       }
     },
     mounted() {
     },
-    methods: {},
+    methods: {
+      async update() {
+        this.showUpdateUI = false;
+        await this.$workbox.messageSW({type: "SKIP_WAITING"});
+      },
+    },
+    created() {
+      if (this.$workbox) {
+        this.$workbox.addEventListener("waiting", () => {
+          this.showUpdateUI = true;
+        });
+      }
+    },
   }
 </script>
 
@@ -151,6 +177,33 @@
     border: 1px dashed rgba(255, 255, 255, 0.2);
     margin: 0 20px 0 20px;
     border-radius: 5px;
+  }
+
+  .update-dialog {
+    text-align: center;
+    border-radius: 20px;
+    margin: 10px 20px 10px 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 25px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .button {
+    min-width: 100px;
+    height: 40px;
+    background: #2d3436;
+    border-radius: 40px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .1s linear;
+    margin: 5px 5px 0 5px;
+    color: white;
+  }
+
+  .button:hover {
+    transform: scale(1.1);
   }
 
 </style>
