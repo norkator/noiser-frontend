@@ -9,6 +9,7 @@ module.exports = {
         })
   },
   pwa: {
+    name: 'Noiser',
     themeColor: "#DE6262",
     msTileColor: "#DE6262",
     appleMobileWebAppCache: "yes",
