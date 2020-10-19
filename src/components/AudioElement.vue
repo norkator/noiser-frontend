@@ -11,8 +11,10 @@
         </div>
       </div>
       <div>
-        <small class="smallSoundName" style="font-size: 16px">{{ this.name }}</small><br>
-        <small class="smallSoundName">Volume {{ this.volume }}%</small>
+        <div @click="openAudioView">
+          <small class="smallSoundName" style="font-size: 16px">{{ this.name }}</small><br>
+          <small class="smallSoundName">Volume {{ this.volume }}%</small>
+        </div>
         <label aria-describedby="Change sound volume">
           <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
         </label>
