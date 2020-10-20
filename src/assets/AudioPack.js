@@ -1,5 +1,5 @@
-exports.audioPacks = {
-  summerPack: {
+exports.audioPacks = [
+  {
     name: 'Summer pack',
     audioSources: [
       {
@@ -25,13 +25,11 @@ exports.audioPacks = {
       },
     ]
   },
-  winterPack: {
+  {
     name: 'Winter pack',
-    audioSources: [
-
-    ]
+    audioSources: []
   },
-  homePack: {
+  {
     name: 'Home pack',
     audioSources: [
       {
@@ -64,7 +62,7 @@ exports.audioPacks = {
       },
     ]
   },
-  other: {
+  {
     name: 'Others',
     audioSources: [
       {
@@ -95,6 +93,6 @@ exports.audioPacks = {
         icon: require('./images/car.svg'),
         audioSrc: require('../assets/audio/road1.mp3')
       },
-    ]
+    ],
   },
-};
+];

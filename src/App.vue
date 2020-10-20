@@ -13,11 +13,13 @@
     </div>
 
     <section class="mainContentLayout magictime slideDownReturn">
-      <div>
-        <h2 class="packName">{{audioSources.summerPack.name}}</h2>
-        <div v-if="audioSources.summerPack.audioSources.length > 0" class="flexLayout">
+
+
+      <div v-bind:key="audioPack.key" v-for="audioPack in audioPacks">
+        <h2 class="packName">{{audioPack.name}}</h2>
+        <div v-if="audioPack.audioSources.length > 0" class="flexLayout">
           <audio-element
-            v-for="as in audioSources.summerPack.audioSources" v-bind:key="as.key"
+            v-for="as in audioPack.audioSources" v-bind:key="as.key"
             :audio-key="as.key"
             :query-key="as.queryKey"
             :name="as.name"
@@ -26,53 +28,10 @@
           />
         </div>
         <h4 v-else class="packNoSounds">Sounds coming</h4>
+        <hr>
       </div>
-      <hr>
-      <div>
-        <h2 class="packName">{{audioSources.winterPack.name}}</h2>
-        <div v-if="audioSources.winterPack.audioSources.length > 0" class="flexLayout">
-          <audio-element
-            v-for="as in audioSources.winterPack.audioSources" v-bind:key="as.key"
-            :audio-key="as.key"
-            :query-key="as.queryKey"
-            :name="as.name"
-            :icon="as.icon"
-            :audio-src="as.audioSrc"
-          />
-        </div>
-        <h4 v-else class="packNoSounds">Sounds coming</h4>
-      </div>
-      <hr>
-      <div>
-        <h2 class="packName">{{audioSources.homePack.name}}</h2>
-        <div v-if="audioSources.homePack.audioSources.length > 0" class="flexLayout">
-          <audio-element
-            v-for="as in audioSources.homePack.audioSources" v-bind:key="as.key"
-            :audio-key="as.key"
-            :query-key="as.queryKey"
-            :name="as.name"
-            :icon="as.icon"
-            :audio-src="as.audioSrc"
-          />
-        </div>
-        <h4 v-else class="packNoSounds">Sounds coming</h4>
-      </div>
-      <hr>
-      <div>
-        <h2 class="packName">{{audioSources.other.name}}</h2>
-        <div v-if="audioSources.other.audioSources.length > 0" class="flexLayout">
-          <audio-element
-            v-for="as in audioSources.other.audioSources" v-bind:key="as.key"
-            :audio-key="as.key"
-            :query-key="as.queryKey"
-            :name="as.name"
-            :icon="as.icon"
-            :audio-src="as.audioSrc"
-          />
-        </div>
-        <h4 v-else class="packNoSounds">Sounds coming</h4>
-      </div>
-      <hr>
+
+
       <h2 class="packName">Links</h2>
       <h4 class="packNoSounds">Download <a style="color: white;"
                                            href="https://play.google.com/store/apps/details?id=com.nitramite.noiser">Android
@@ -101,7 +60,7 @@
     },
     data() {
       return {
-        audioSources: AudioPack.audioPacks,
+        audioPacks: AudioPack.audioPacks,
         showUpdateUI: false,
       }
     },
