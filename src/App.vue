@@ -29,11 +29,27 @@
         <hr>
       </div>
 
-      <h2 class="packName">Timer</h2>
-      <div class="timer">
-        <button @click="stopAudioPlayers">Stop all players</button>
+
+      <div class="timer-container">
+        <h2 class="packName">Timer</h2>
+        <div class="flexLayout" style="margin-bottom: 0;">
+          <div class="timer">
+            <div class="timer-content" style="margin-top: 10px;">
+              <div @click="incrementTimer" class="timer-number-button ripple">+</div>
+              <label class="timer-input">
+                <input type="number" class="timer-input" :value="timerMinutes"/>
+              </label>
+              <div @click="decrementTimer" class="timer-number-button ripple">-</div>
+            </div>
+            <div class="timer-content">
+              <div class="timer-button ripple" @click="startStopTimer">{{ this.timer === null ? 'start' : 'stop'}}</div>
+            </div>
+          </div>
+        </div>
+        <small class="packNoSounds">Time given in minutes</small>
       </div>
       <hr>
+
 
       <h2 class="packName">Links</h2>
       <h4 class="packNoSounds">Download <a style="color: white;"
@@ -42,7 +58,8 @@
       <h4 class="packNoSounds"><a style="color: white;" href="http://www.nitramite.com/noiser.html">Click here</a> for
         asset attribution notes</h4>
       <hr>
-
+      <h4 class="packNoSounds">© Nitramite - All rights reserved</h4>
+      <hr>
     </section>
     <the-footer/>
   </div>
@@ -65,6 +82,8 @@
       return {
         audioPacks: AudioPack.audioPacks,
         showUpdateUI: false,
+        timerMinutes: 10,
+        timer: null,
       }
     },
     mounted() {
@@ -73,6 +92,30 @@
       async update() {
         this.showUpdateUI = false;
         await this.$workbox.messageSW({type: "SKIP_WAITING"});
+      },
+      incrementTimer() {
+        if (this.timerMinutes < 120) {
+          this.timerMinutes += 1;
+        }
+      },
+      decrementTimer() {
+        if (this.timerMinutes > 1) {
+          this.timerMinutes -= 1;
+        }
+      },
+      startStopTimer() {
+        if (this.timer === null) {
+          console.log('Timer started', this.timerMinutes, 'minutes');
+          this.timer = setTimeout(() => {
+            this.stopAudioPlayers();
+            this.timer = null;
+            console.log('Timer timeout...');
+          }, (this.timerMinutes * 60 * 1000));
+        } else {
+          clearTimeout(this.timer);
+          this.timer = null;
+          console.log('Timer cleared by user');
+        }
       },
       stopAudioPlayers() {
         this.$emit('pauseAudio');
@@ -171,8 +214,88 @@
     transform: scale(1.1);
   }
 
+  .timer-container {
+    margin-bottom: 10px;
+  }
+
   .timer {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    min-width: 150px;
+    max-width: 150px;
+    height: 100px;
+    background: #2d3436;
+    border-radius: 40px;
+    padding: 0 50px;
+    overflow: hidden;
+  }
+
+  .timer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timer-number-button {
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 30px;
+    color: white;
+    padding: 10px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .timer-button {
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 16px;
+    color: white;
+    padding: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+
+  .timer-input {
+    width: 50px;
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #2d3436;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  .ripple {
+    background-position: center;
+    transition: background 0.8s;
+  }
+
+  .ripple:hover {
+    background: #DE6262 radial-gradient(circle, transparent 1%, #DE6262 1%) center/15000%;
+  }
+
+  .ripple:active {
+    background-color: #ffffff;
+    background-size: 100%;
+    transition: background 0s;
   }
 
 </style>
