@@ -73,6 +73,10 @@
           this.paused = true;
         }
       },
+      emitStopAudio() {
+        this.isOpen = false;
+        this.pauseAudio();
+      },
       openAudioView() {
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
@@ -83,7 +87,10 @@
       },
     },
     watch: {},
-    computed: {}
+    computed: {},
+    created() {
+      this.$parent.$on('pauseAudio', this.emitStopAudio);
+    },
   }
 </script>
 

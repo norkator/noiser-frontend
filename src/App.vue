@@ -13,8 +13,6 @@
     </div>
 
     <section class="mainContentLayout magictime slideDownReturn">
-
-
       <div v-bind:key="audioPack.key" v-for="audioPack in audioPacks">
         <h2 class="packName">{{audioPack.name}}</h2>
         <div v-if="audioPack.audioSources.length > 0" class="flexLayout">
@@ -31,6 +29,11 @@
         <hr>
       </div>
 
+      <h2 class="packName">Timer</h2>
+      <div class="timer">
+        <button @click="stopAudioPlayers">Stop all players</button>
+      </div>
+      <hr>
 
       <h2 class="packName">Links</h2>
       <h4 class="packNoSounds">Download <a style="color: white;"
@@ -70,6 +73,9 @@
       async update() {
         this.showUpdateUI = false;
         await this.$workbox.messageSW({type: "SKIP_WAITING"});
+      },
+      stopAudioPlayers() {
+        this.$emit('pauseAudio');
       },
     },
     created() {
@@ -163,6 +169,10 @@
 
   .button:hover {
     transform: scale(1.1);
+  }
+
+  .timer {
+    margin-bottom: 20px;
   }
 
 </style>
