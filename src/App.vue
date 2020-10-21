@@ -37,12 +37,12 @@
             <div class="timer-content" style="margin-top: 10px;">
               <div @click="incrementTimer" class="timer-number-button ripple">+</div>
               <label class="timer-input">
-                <input type="number" class="timer-input" :value="timerMinutes"/>
+                <input type="number" class="timer-input" v-model="timerMinutes"/>
               </label>
               <div @click="decrementTimer" class="timer-number-button ripple">-</div>
             </div>
             <div class="timer-content">
-              <div class="timer-button ripple" @click="startStopTimer">{{ this.timer === null ? 'start' : 'stop'}}</div>
+              <div class="timer-button ripple" @click="startStopTimer">{{ this.fullTimer === null ? 'start' : 'stop'}}</div>
             </div>
           </div>
         </div>
@@ -83,7 +83,8 @@
         audioPacks: AudioPack.audioPacks,
         showUpdateUI: false,
         timerMinutes: 10,
-        timer: null,
+        fullTimer: null,
+        indicatorInterval: null,
       }
     },
     mounted() {
@@ -104,16 +105,22 @@
         }
       },
       startStopTimer() {
-        if (this.timer === null) {
+        if (this.fullTimer === null) {
           console.log('Timer started', this.timerMinutes, 'minutes');
-          this.timer = setTimeout(() => {
+          this.fullTimer = setTimeout(() => {
             this.stopAudioPlayers();
-            this.timer = null;
+            this.fullTimer = null;
+            clearInterval(this.indicatorInterval);
             console.log('Timer timeout...');
           }, (this.timerMinutes * 60 * 1000));
+          this.indicatorInterval = setInterval(() => {
+            this.timerMinutes -= 1;
+          }, (60 * 1000));
         } else {
-          clearTimeout(this.timer);
-          this.timer = null;
+          clearTimeout(this.fullTimer);
+          this.fullTimer = null;
+          clearInterval(this.indicatorInterval);
+          this.indicatorInterval = null;
           console.log('Timer cleared by user');
         }
       },
@@ -289,7 +296,7 @@
   }
 
   .ripple:hover {
-    background: #DE6262 radial-gradient(circle, transparent 1%, #DE6262 1%) center/15000%;
+    background: #d9d8de radial-gradient(circle, transparent 1%, #d9d8de 1%) center/15000%;
   }
 
   .ripple:active {
