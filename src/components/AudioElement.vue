@@ -26,17 +26,22 @@
 </template>
 
 <script>
+  import LocalStorage from '../LocalStorage';
+
   export default {
     name: "AudioComponent",
     props: [
       'audioKey', 'queryKey', 'name', 'icon', 'audioSrc'
     ],
+    mixins: [LocalStorage],
     data() {
       return {
         player: null,
         paused: true,
         isOpen: false,
         volume: 100,
+        lsPlayingKey: this.queryKey + '-playing',
+        lsVolumeKey: this.queryKey + '-volume-level',
       }
     },
     mounted() {
@@ -48,10 +53,16 @@
         this.player = new Audio(this.audioSrc);
         // this.player.loop = true; // This is not gap less
         let volume = document.querySelector("#" + this.queryKey + "-volume-control");
+
+        const savedVolume = this.lsGetValue(this.lsVolumeKey);
+        if (savedVolume !== null) {
+          this.setVolumeLevel(savedVolume);
+          volume.value = Number(savedVolume * 100).toFixed(0);
+        }
+
         volume.addEventListener("change", function (e) {
           const c = e.currentTarget.value / 100;
-          that.player.volume = c;
-          that.volume = Number(c * 100).toFixed(0);
+          that.setVolumeLevel(c);
         });
         this.player.addEventListener('timeupdate', function () {
           const buffer = .44;
@@ -60,17 +71,30 @@
             this.play();
           }
         });
+
+        const wasPlaying = this.lsGetValue(this.lsPlayingKey);
+        if (wasPlaying !== null && wasPlaying === 'true') {
+          this.isOpen = true;
+          this.startAudio();
+        }
+      },
+      setVolumeLevel(volumeValue) {
+        this.player.volume = volumeValue;
+        this.volume = Number(volumeValue * 100).toFixed(0);
+        this.lsSaveValue(this.lsVolumeKey, volumeValue);
       },
       startAudio() {
         if (this.player !== null) {
           this.player.play();
           this.paused = false;
+          this.lsSaveValue(this.lsPlayingKey, true);
         }
       },
       pauseAudio() {
         if (this.player !== null) {
           this.player.pause();
           this.paused = true;
+          this.lsSaveValue(this.lsPlayingKey, false);
         }
       },
       emitStopAudio() {
