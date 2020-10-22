@@ -42,7 +42,8 @@
               <div @click="decrementTimer" class="timer-number-button ripple">-</div>
             </div>
             <div class="timer-content">
-              <div class="timer-button ripple" @click="startStopTimer">{{ this.fullTimer === null ? 'start' : 'stop'}}</div>
+              <div class="timer-button ripple" @click="startStopTimer">{{ this.fullTimer === null ? 'start' : 'stop'}}
+              </div>
             </div>
           </div>
         </div>
@@ -50,6 +51,27 @@
       </div>
       <hr>
 
+      <h2 class="packName" style="margin-bottom: 10px;">Extra</h2>
+      <small class="packNoSounds">Here you can upload custom streams json</small>
+      <div>
+        <small class="packNoSounds">
+          <a style="color: white;" href="http://www.nitramite.com/noiser.html">get sample file</a>
+        </small>
+      </div>
+      <div v-if="showUploadBtn" class="flexLayout">
+        <input class="custom-button" style="max-width: 240px;" type="file" v-on:change="uploadStreamsJson($event)">
+      </div>
+      <div class="flexLayout">
+        <audio-element
+          v-for="cs in customStreams" v-bind:key="cs.key"
+          :audio-key="cs.key"
+          :query-key="cs.queryKey"
+          :name="cs.name"
+          :icon="cs.icon"
+          :audio-src="cs.audioSrc"
+        />
+      </div>
+      <hr>
 
       <h2 class="packName">Links</h2>
       <h4 class="packNoSounds">Download <a style="color: white;"
@@ -85,9 +107,12 @@
         timerMinutes: 10,
         fullTimer: null,
         indicatorInterval: null,
+        customStreams: [],
+        showUploadBtn: true,
       }
     },
     mounted() {
+      /* */
     },
     methods: {
       async update() {
@@ -126,6 +151,20 @@
       },
       stopAudioPlayers() {
         this.$emit('pauseAudio');
+      },
+      uploadStreamsJson(event) {
+        const that = this;
+        const files = event.target.files;
+        let json = null;
+        if (files.length >= 0) {
+          let reader = new FileReader();
+          reader.readAsText(files[0], "UTF-8");
+          reader.onload = function (evt) {
+            json = JSON.parse(evt.target.result);
+            that.customStreams = json;
+            that.showUploadBtn = false;
+          }
+        }
       },
     },
     created() {
@@ -296,7 +335,7 @@
   }
 
   .ripple:hover {
-    background: #d9d8de radial-gradient(circle, transparent 1%, #d9d8de 1%) center/15000%;
+    background: #da5b5b radial-gradient(circle, transparent 1%, #da5b5b 1%) center/15000%;
   }
 
   .ripple:active {
@@ -304,5 +343,18 @@
     background-size: 100%;
     transition: background 0s;
   }
+
+  .custom-button {
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    border: 1px solid #2c3e50;
+    background-color: #282e2f;
+    margin: 5px;
+    font-size: 14px;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
 
 </style>

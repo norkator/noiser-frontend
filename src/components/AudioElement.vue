@@ -5,7 +5,7 @@
       <div class="player-container-content" @click="openAudioView" :class="isOpen ? 'player-container-span-open' : ''">
         <div>
           <!--suppress HtmlUnknownTarget -->
-          <img class="icon" :src="this.icon" alt="icon">
+          <img class="icon" :src="getIcon" alt="icon">
           <br>
           <span>{{ this.name }}</span>
         </div>
@@ -111,7 +111,11 @@
       },
     },
     watch: {},
-    computed: {},
+    computed: {
+      getIcon() {
+        return this.icon !== null ? this.icon : require('../assets/images/play.svg');
+      },
+    },
     created() {
       this.$parent.$on('pauseAudio', this.emitStopAudio);
     },
