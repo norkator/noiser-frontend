@@ -52,14 +52,27 @@
       <hr>
 
       <h2 class="packName" style="margin-bottom: 10px;">Extra</h2>
-      <small class="packNoSounds">Here you can upload custom streams json</small>
       <div>
-        <small class="packNoSounds">
-          <a style="color: white;" href="http://www.nitramite.com/noiser.html">get sample file</a>
+        <small class="packNoSounds">select extra streams -
+          <a style="color: white;" href="https://github.com/norkator/noiser-extras">manage here</a>
         </small>
       </div>
-      <div v-if="showUploadBtn" class="flexLayout">
-        <input class="custom-button" style="max-width: 240px;" type="file" v-on:change="uploadStreamsJson($event)">
+      <div style="margin-top: 5px; margin-bottom: 10px;">
+        <select class="custom-button" @change="loadStreams($event)">
+          <option value="null">Select...</option>
+          <option v-bind:key="index" v-for="(s, index) in extraStreamData" :value="JSON.stringify(s.streams)">
+            {{s.name}}
+          </option>
+        </select>
+      </div>
+      <div v-if="showUploadBtn">
+        <div>
+          <small class="packNoSounds">... or upload custom streams json -
+            <a style="color: white;" href="http://www.nitramite.com/noiser.html">sample here</a></small>
+        </div>
+        <div class="flexLayout">
+          <input class="custom-button" style="max-width: 240px;" type="file" v-on:change="uploadStreamsJson($event)">
+        </div>
       </div>
       <div class="flexLayout">
         <audio-element
@@ -107,12 +120,13 @@
         timerMinutes: 10,
         fullTimer: null,
         indicatorInterval: null,
+        extraStreamData: null,
         customStreams: [],
         showUploadBtn: true,
       }
     },
     mounted() {
-      /* */
+      this.getExtraStreams();
     },
     methods: {
       async update() {
@@ -166,6 +180,17 @@
           }
         }
       },
+      getExtraStreams() {
+        const repo = "https://raw.githubusercontent.com/norkator/noiser-extras/main/streams.json";
+        const xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", repo, false);
+        xmlHttp.send(null);
+        this.extraStreamData = JSON.parse(xmlHttp.responseText);
+      },
+      loadStreams(event) {
+        this.customStreams = JSON.parse(event.target.value);
+        this.showUploadBtn = this.customStreams === null;
+      },
     },
     created() {
       if (this.$workbox) {
@@ -173,6 +198,9 @@
           this.showUpdateUI = true;
         });
       }
+    },
+    computed: {
+      /* */
     },
   }
 </script>
@@ -355,6 +383,5 @@
     border-radius: 20px;
     cursor: pointer;
   }
-
 
 </style>
