@@ -1,6 +1,6 @@
 exports.audioPacks = [
   {
-    name: 'Summer pack',
+    name: 'summer pack',
     audioSources: [
       {
         key: 1,
@@ -63,7 +63,7 @@ exports.audioPacks = [
     ]
   },
   {
-    name: 'Others',
+    name: 'others',
     audioSources: [
       {
         key: 1,

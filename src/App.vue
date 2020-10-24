@@ -14,7 +14,7 @@
 
     <section class="mainContentLayout magictime slideDownReturn">
       <div v-bind:key="audioPack.key" v-for="audioPack in audioPacks">
-        <h2 class="packName">{{audioPack.name}}</h2>
+        <h2 class="pack-name">{{audioPack.name}}</h2>
         <div v-if="audioPack.audioSources.length > 0" class="flexLayout">
           <audio-element
             v-for="as in audioPack.audioSources" v-bind:key="as.key"
@@ -25,13 +25,13 @@
             :audio-src="as.audioSrc"
           />
         </div>
-        <h4 v-else class="packNoSounds">Sounds coming</h4>
+        <h4 v-else class="smaller-text">sounds coming</h4>
         <hr>
       </div>
 
 
       <div class="timer-container">
-        <h2 class="packName">Timer</h2>
+        <h2 class="pack-name">Timer</h2>
         <div class="flexLayout" style="margin-bottom: 0;">
           <div class="timer">
             <div class="timer-content" style="margin-top: 10px;">
@@ -47,31 +47,38 @@
             </div>
           </div>
         </div>
-        <small class="packNoSounds">Time given in minutes</small>
+        <small class="smaller-text">Time given in minutes</small>
       </div>
       <hr>
 
-      <h2 class="packName" style="margin-bottom: 10px;">Extra</h2>
-      <div>
-        <small class="packNoSounds">select extra streams -
-          <a style="color: white;" href="https://github.com/norkator/noiser-extras">manage here</a>
-        </small>
-      </div>
-      <div style="margin-top: 5px; margin-bottom: 10px;">
-        <select class="custom-button" @change="loadStreams($event)">
-          <option value="null">Select...</option>
-          <option v-bind:key="index" v-for="(s, index) in extraStreamData" :value="JSON.stringify(s.streams)">
-            {{s.name}}
-          </option>
-        </select>
+      <h2 class="pack-name">extra</h2>
+      <div class="flexLayout">
+        <div class="dashed-border">
+          <div>
+            <small class="smaller-text">select extra streams -
+              <a style="color: white;" href="https://github.com/norkator/noiser-extras">manage here</a>
+            </small>
+          </div>
+          <select class="custom-button" @change="loadStreams($event)">
+            <option value="null">Select...</option>
+            <option v-bind:key="index" v-for="(s, index) in extraStreamData" :value="JSON.stringify(s.streams)">
+              {{s.name}}
+            </option>
+          </select>
+        </div>
       </div>
       <div v-if="showUploadBtn">
-        <div>
-          <small class="packNoSounds">... or upload custom streams json -
-            <a style="color: white;" href="http://www.nitramite.com/noiser.html">sample here</a></small>
+        <div style="margin-bottom: 10px;">
+          <small class="smaller-text">or</small>
         </div>
         <div class="flexLayout">
-          <input class="custom-button" style="max-width: 240px;" type="file" v-on:change="uploadStreamsJson($event)">
+          <div class="dashed-border">
+            <small class="smaller-text">upload custom streams json -
+              <a style="color: white;" href="http://www.nitramite.com/noiser.html">sample here</a></small>
+            <div class="flexLayout">
+              <input class="custom-button" style="max-width: 240px;" type="file" v-on:change="uploadStreamsJson($event)">
+            </div>
+          </div>
         </div>
       </div>
       <div class="flexLayout">
@@ -86,14 +93,14 @@
       </div>
       <hr>
 
-      <h2 class="packName">Links</h2>
-      <h4 class="packNoSounds">Download <a style="color: white;"
-                                           href="https://play.google.com/store/apps/details?id=com.nitramite.noiser">Android
-        App</a> here</h4>
-      <h4 class="packNoSounds"><a style="color: white;" href="http://www.nitramite.com/noiser.html">Click here</a> for
+      <h2 class="pack-name">links</h2>
+      <h4 class="smaller-text">download <a style="color: white;"
+                                           href="https://play.google.com/store/apps/details?id=com.nitramite.noiser">ANDROID
+        APP</a> here</h4>
+      <h4 class="smaller-text"><a style="color: white;" href="http://www.nitramite.com/noiser.html">CLICK HERE</a> for
         asset attribution notes</h4>
       <hr>
-      <h4 class="packNoSounds">© Nitramite - All rights reserved</h4>
+      <h4 class="smaller-text">© Nitramite - All rights reserved</h4>
       <hr>
     </section>
     <the-footer/>
@@ -243,15 +250,16 @@
     margin-bottom: 10px;
   }
 
-  .packName {
+  .pack-name {
     font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-    font-size: 28px;
+    font-size: 24px;
     color: white;
+    margin-bottom: 10px;
   }
 
-  .packNoSounds {
+  .smaller-text {
     font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-    font-size: 14px;
+    font-size: 12px;
     color: white;
   }
 
@@ -259,6 +267,15 @@
     border: 1px dashed rgba(255, 255, 255, 0.2);
     margin: 0 20px 0 20px;
     border-radius: 5px;
+  }
+
+  .dashed-border {
+    border-radius: 25px;
+    border-style: dashed;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-width: 2px;
+    margin: 5px;
+    padding: 10px;
   }
 
   .update-dialog {
@@ -379,7 +396,7 @@
     margin: 5px;
     font-size: 14px;
     color: white;
-    padding: 10px;
+    padding: 5px;
     border-radius: 20px;
     cursor: pointer;
   }
