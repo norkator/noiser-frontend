@@ -8,6 +8,7 @@
           <img class="icon" :src="getIcon" alt="icon">
           <br>
           <span>{{ this.name }}</span>
+          <div v-if="isOpen" class="close-icon"/>
         </div>
       </div>
       <div>
@@ -222,5 +223,14 @@
     font-size: 12px;
   }
 
+  .close-icon {
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url('../assets/images/close.svg');
+    bottom: 37px;
+    right: 0;
+  }
 
 </style>
