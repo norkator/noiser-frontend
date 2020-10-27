@@ -17,8 +17,7 @@
         <h2 class="pack-name">{{audioPack.name}}</h2>
         <div v-if="audioPack.audioSources.length > 0" class="flexLayout">
           <audio-element
-            v-for="as in audioPack.audioSources" v-bind:key="as.key"
-            :audio-key="as.key"
+            v-for="as in audioPack.audioSources" v-bind:key="as.queryKey"
             :query-key="as.queryKey"
             :name="as.name"
             :icon="as.icon"
@@ -83,8 +82,7 @@
       </div>
       <div class="flexLayout">
         <audio-element
-          v-for="cs in customStreams" v-bind:key="cs.key"
-          :audio-key="cs.key"
+          v-for="cs in customStreams" v-bind:key="cs.queryKey"
           :query-key="cs.queryKey"
           :name="cs.name"
           :icon="cs.icon"
@@ -196,6 +194,7 @@
       },
       loadStreams(event) {
         this.$emit('pauseAudio');
+        this.customStreams = null;
         this.customStreams = JSON.parse(event.target.value);
         this.showUploadBtn = this.customStreams === null;
       },
