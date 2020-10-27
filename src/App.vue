@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-        <small class="smaller-text">Time given in minutes</small>
+        <small class="smaller-text">time given in minutes</small>
       </div>
       <hr>
 
@@ -100,7 +100,7 @@
       <h4 class="smaller-text"><a style="color: white;" href="http://www.nitramite.com/noiser.html">CLICK HERE</a> for
         asset attribution notes</h4>
       <hr>
-      <h4 class="smaller-text">© Nitramite - All rights reserved</h4>
+      <h4 class="smaller-text">© Nitramite {{getYear()}} - All rights reserved</h4>
       <hr>
     </section>
     <the-footer/>
@@ -195,8 +195,12 @@
         this.extraStreamData = JSON.parse(xmlHttp.responseText);
       },
       loadStreams(event) {
+        this.$emit('pauseAudio');
         this.customStreams = JSON.parse(event.target.value);
         this.showUploadBtn = this.customStreams === null;
+      },
+      getYear() {
+        return new Date().getFullYear();
       },
     },
     created() {
