@@ -19,7 +19,7 @@
         <label aria-describedby="Change sound volume">
           <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
         </label>
-        <video class="video-player" :id="hlsVideoId"></video>
+        <video class="video-player" :id="this.queryKey + '-m3u8'"></video>
       </div>
       <br>
     </div>
@@ -41,7 +41,8 @@
       return {
         player: null,
         hlsPlayer: null,
-        hlsVideoId: null,
+        hlsPlayerElement: null,
+        manifestParsed: false,
         paused: true,
         isOpen: false,
         volume: 100,
@@ -50,7 +51,6 @@
       }
     },
     mounted() {
-      this.hlsVideoId = String(this.audioKey) + '-m3u8';
       this.initAudioPlayer();
     },
     methods: {
@@ -59,12 +59,12 @@
         if (!this.audioSrc.includes('.m3u8')) {
           this.player = new Audio(this.audioSrc);
         } else {
-          let video = document.getElementById(this.hlsVideoId);
+          this.hlsPlayerElement = document.querySelector("#" + this.queryKey + "-m3u8");
           this.hlsPlayer = new Hls();
           this.hlsPlayer.loadSource(this.audioSrc);
-          this.hlsPlayer.attachMedia(video);
+          this.hlsPlayer.attachMedia(this.hlsPlayerElement);
           this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.play();
+            this.manifestParsed = true;
           });
         }
         // this.player.loop = true; // This is not gap less
@@ -80,13 +80,15 @@
           const c = e.currentTarget.value / 100;
           that.setVolumeLevel(c);
         });
-        this.player.addEventListener('timeupdate', function () {
-          const buffer = .44;
-          if (this.currentTime > this.duration - buffer) {
-            this.currentTime = 0;
-            this.play();
-          }
-        });
+        if (this.player !== null) {
+          this.player.addEventListener('timeupdate', function () {
+            const buffer = .44;
+            if (this.currentTime > this.duration - buffer) {
+              this.currentTime = 0;
+              this.play();
+            }
+          });
+        }
 
         const wasPlaying = this.lsGetValue(this.lsPlayingKey);
         if (wasPlaying !== null && wasPlaying === 'true') {
@@ -95,7 +97,11 @@
         }
       },
       setVolumeLevel(volumeValue) {
-        this.player.volume = volumeValue;
+        if (this.player !== null) {
+          this.player.volume = volumeValue;
+        } else if (this.hlsPlayerElement !== null) {
+          this.hlsPlayerElement.volume = volumeValue;
+        }
         this.volume = Number(volumeValue * 100).toFixed(0);
         this.lsSaveValue(this.lsVolumeKey, volumeValue);
       },
@@ -104,11 +110,17 @@
           this.player.play();
           this.paused = false;
           this.lsSaveValue(this.lsPlayingKey, true);
+        } else if (this.hlsPlayerElement !== null) {
+          this.hlsPlayerElement.play();
         }
       },
       pauseAudio() {
         if (this.player !== null) {
           this.player.pause();
+          this.paused = true;
+          this.lsSaveValue(this.lsPlayingKey, false);
+        } else if (this.hlsPlayerElement !== null) {
+          this.hlsPlayerElement.pause();
           this.paused = true;
           this.lsSaveValue(this.lsPlayingKey, false);
         }
