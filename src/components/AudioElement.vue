@@ -34,7 +34,7 @@
   export default {
     name: "AudioComponent",
     props: [
-      'audioKey', 'queryKey', 'name', 'icon', 'audioSrc'
+      'queryKey', 'name', 'icon', 'audioSrc'
     ],
     mixins: [LocalStorage],
     data() {
