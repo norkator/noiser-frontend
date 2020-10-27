@@ -19,7 +19,7 @@
         <label aria-describedby="Change sound volume">
           <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
         </label>
-        <video class="video-player" id="video"></video>
+        <video class="video-player" :id="hlsVideoId"></video>
       </div>
       <br>
     </div>
@@ -40,6 +40,8 @@
     data() {
       return {
         player: null,
+        hlsPlayer: null,
+        hlsVideoId: null,
         paused: true,
         isOpen: false,
         volume: 100,
@@ -48,6 +50,7 @@
       }
     },
     mounted() {
+      this.hlsVideoId = String(this.audioKey) + '-m3u8';
       this.initAudioPlayer();
     },
     methods: {
@@ -56,11 +59,11 @@
         if (!this.audioSrc.includes('.m3u8')) {
           this.player = new Audio(this.audioSrc);
         } else {
-          let video = document.getElementById('video');
-          this.player = new Hls();
-          this.player.loadSource(this.audioSrc);
-          this.player.attachMedia(video);
-          this.player.on(Hls.Events.MANIFEST_PARSED, function() {
+          let video = document.getElementById(this.hlsVideoId);
+          this.hlsPlayer = new Hls();
+          this.hlsPlayer.loadSource(this.audioSrc);
+          this.hlsPlayer.attachMedia(video);
+          this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function() {
             video.play();
           });
         }
