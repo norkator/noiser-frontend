@@ -19,6 +19,7 @@
         <label aria-describedby="Change sound volume">
           <input class="slider" value="100" type="range" :id="this.queryKey + '-volume-control'">
         </label>
+        <video class="video-player" id="video"></video>
       </div>
       <br>
     </div>
@@ -28,6 +29,7 @@
 
 <script>
   import LocalStorage from '../LocalStorage';
+  import Hls from 'hls.js';
 
   export default {
     name: "AudioComponent",
@@ -51,7 +53,17 @@
     methods: {
       initAudioPlayer() {
         const that = this;
-        this.player = new Audio(this.audioSrc);
+        if (!this.audioSrc.includes('.m3u8')) {
+          this.player = new Audio(this.audioSrc);
+        } else {
+          let video = document.getElementById('video');
+          this.player = new Hls();
+          this.player.loadSource(this.audioSrc);
+          this.player.attachMedia(video);
+          this.player.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+          });
+        }
         // this.player.loop = true; // This is not gap less
         let volume = document.querySelector("#" + this.queryKey + "-volume-control");
 
@@ -231,6 +243,14 @@
     background: url('../assets/images/close.svg');
     bottom: 37px;
     right: 0;
+  }
+
+  .video-player {
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
   }
 
 </style>
