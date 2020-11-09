@@ -100,6 +100,8 @@
       <hr>
       <h4 class="smaller-text">© Nitramite {{getYear()}} - All rights reserved</h4>
       <hr>
+      <h4 class="smaller-text">Version {{versionInfo}}</h4>
+      <hr>
     </section>
     <the-footer/>
   </div>
@@ -110,6 +112,8 @@
   import AudioElement from "./components/AudioElement.vue";
   import TheFooter from "./components/TheFooter.vue";
   import AudioPack from './assets/AudioPack';
+
+  const version = require('../package').version;
 
   export default {
     name: 'App',
@@ -128,6 +132,7 @@
         extraStreamData: null,
         customStreams: [],
         showUploadBtn: true,
+        versionInfo: version,
       }
     },
     mounted() {
