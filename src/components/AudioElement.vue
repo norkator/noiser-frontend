@@ -58,6 +58,7 @@
         const that = this;
         if (!this.audioSrc.includes('.m3u8')) {
           this.player = new Audio(this.audioSrc);
+          this.player.preload = false;
         } else {
           this.hlsPlayerElement = document.querySelector("#" + this.queryKey + "-m3u8");
           this.hlsPlayer = new Hls();
@@ -107,6 +108,7 @@
       },
       startAudio() {
         if (this.player !== null) {
+          this.player.src = this.audioSrc;
           this.player.play();
           this.paused = false;
           this.lsSaveValue(this.lsPlayingKey, true);
@@ -117,6 +119,7 @@
       pauseAudio() {
         if (this.player !== null) {
           this.player.pause();
+          this.player.src = '';
           this.paused = true;
           this.lsSaveValue(this.lsPlayingKey, false);
         } else if (this.hlsPlayerElement !== null) {
