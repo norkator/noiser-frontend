@@ -62,11 +62,6 @@
         } else {
           this.hlsPlayerElement = document.querySelector("#" + this.queryKey + "-m3u8");
           this.hlsPlayer = new Hls();
-          this.hlsPlayer.loadSource(this.audioSrc);
-          this.hlsPlayer.attachMedia(this.hlsPlayerElement);
-          this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function() {
-            this.manifestParsed = true;
-          });
         }
         // this.player.loop = true; // This is not gap less
         let volume = document.querySelector("#" + this.queryKey + "-volume-control");
@@ -113,6 +108,11 @@
           this.paused = false;
           this.lsSaveValue(this.lsPlayingKey, true);
         } else if (this.hlsPlayerElement !== null) {
+          this.hlsPlayer.loadSource(this.audioSrc);
+          this.hlsPlayer.attachMedia(this.hlsPlayerElement);
+          this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function() {
+            this.manifestParsed = true;
+          });
           this.hlsPlayerElement.play();
         }
       },
@@ -124,6 +124,7 @@
           this.lsSaveValue(this.lsPlayingKey, false);
         } else if (this.hlsPlayerElement !== null) {
           this.hlsPlayerElement.pause();
+          this.hlsPlayer.stopLoad();
           this.paused = true;
           this.lsSaveValue(this.lsPlayingKey, false);
         }
