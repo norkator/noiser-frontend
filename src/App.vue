@@ -1,16 +1,7 @@
 <template>
   <div id="app-container">
     <the-header app-name="Noiser"/>
-
-    <div class="update-dialog" v-if="showUpdateUI">
-      <div class="update-dialog__content">
-        A new version is available. Refresh now to activate?
-      </div>
-      <div class="update-dialog__actions">
-        <button class="button" @click="update">Update</button>
-        <button class="button" @click="showUpdateUI = false">Cancel</button>
-      </div>
-    </div>
+    
 
     <section class="mainContentLayout magictime slideDownReturn">
       <div v-bind:key="audioPack.key" v-for="audioPack in audioPacks">
@@ -139,10 +130,6 @@
       this.getExtraStreams();
     },
     methods: {
-      async update() {
-        this.showUpdateUI = false;
-        await this.$workbox.messageSW({type: "SKIP_WAITING"});
-      },
       incrementTimer() {
         if (this.timerMinutes < 120) {
           this.timerMinutes += 1;
