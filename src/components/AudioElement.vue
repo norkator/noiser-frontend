@@ -13,7 +13,7 @@
       </div>
       <div>
         <div @click="openAudioView">
-          <small class="smallSoundName" style="font-size: 16px">{{ this.name }}</small><br>
+          <small class="smallSoundName" :style="getSoundNameStyle()">{{ this.name }}</small><br>
           <small class="smallSoundName">Volume {{ this.volume }}%</small>
         </div>
         <label aria-describedby="Change sound volume">
@@ -141,6 +141,9 @@
           this.pauseAudio();
         }
       },
+      getSoundNameStyle() {
+        return String(this.name).length > 12 ? 'font-size: 12px' : 'font-size: 16px';
+      }
     },
     watch: {},
     computed: {
