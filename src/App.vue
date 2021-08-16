@@ -1,9 +1,16 @@
 <template>
   <div id="app-container">
     <the-header app-name="Noiser"/>
-    
 
     <section class="mainContentLayout magictime slideDownReturn">
+
+      <h2 class="pack-name">radio channels</h2>
+      <div class="chartContainer">
+        <div id="chartdiv" class="chartDiv" ref="chartdiv"></div>
+      </div>
+
+
+      <hr>
       <div v-bind:key="audioPack.key" v-for="audioPack in audioPacks">
         <h2 class="pack-name">{{audioPack.name}}</h2>
         <div v-if="audioPack.audioSources.length > 0" class="flexLayout">
@@ -66,7 +73,8 @@
             <small class="smaller-text">upload custom streams json -
               <a style="color: white;" href="http://www.nitramite.com/noiser.html">sample here</a></small>
             <div class="flexLayout">
-              <input class="custom-button" style="max-width: 240px;" type="file" v-on:change="uploadStreamsJson($event)">
+              <input class="custom-button" style="max-width: 240px;" type="file"
+                     v-on:change="uploadStreamsJson($event)">
             </div>
           </div>
         </div>
@@ -104,6 +112,11 @@
   import TheFooter from "./components/TheFooter.vue";
   import AudioPack from './assets/AudioPack';
 
+  import * as am4core from "@amcharts/amcharts4/core";
+  import * as am4maps from "@amcharts/amcharts4/maps";
+  import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
+
+
   const version = require('../package').version;
 
   export default {
@@ -128,6 +141,7 @@
     },
     mounted() {
       this.getExtraStreams();
+      this.initMap();
     },
     methods: {
       incrementTimer() {
@@ -193,6 +207,28 @@
       getYear() {
         return new Date().getFullYear();
       },
+      initMap() {
+        let map = am4core.create(this.$refs.chartdiv, am4maps.MapChart);
+        map.geodata = am4geodata_worldLow;
+        map.projection = new am4maps.projections.Miller();
+        map.seriesContainer.draggable = false;
+        map.seriesContainer.resizable = false;
+        map.maxZoomLevel = 1;
+
+        // Series for World map
+        const worldSeries = map.series.push(new am4maps.MapPolygonSeries());
+        worldSeries.exclude = ["AQ"];
+        worldSeries.useGeodata = true;
+
+        const polygonTemplate = worldSeries.mapPolygons.template;
+        polygonTemplate.tooltipText = "{name}";
+        polygonTemplate.fill = map.colors.getIndex(0);
+        polygonTemplate.nonScalingStroke = true;
+        polygonTemplate.fill = am4core.color("#e1e1e1");
+
+        const hs = polygonTemplate.states.create("hover");
+        hs.properties.fill = am4core.color("#2d3436");
+      },
     },
     created() {
       if (this.$workbox) {
@@ -204,6 +240,9 @@
     computed: {
       /* */
     },
+    beforeDestroy() {
+      /* */
+    }
   }
 </script>
 
@@ -393,6 +432,18 @@
     color: white;
     padding: 8px;
     border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .chartContainer {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+
+  .chartDiv {
+    width: 100%;
+    height: 30vh;
     cursor: pointer;
   }
 
