@@ -7,6 +7,19 @@
       <h2 class="pack-name">radio channels</h2>
       <div class="chartContainer">
         <div id="chartdiv" class="chartDiv" ref="chartdiv"></div>
+        <div class="flexLayout">
+          <audio-element
+            v-for="cs in customStreams" v-bind:key="cs.queryKey"
+            :query-key="cs.queryKey"
+            :name="cs.name"
+            :icon="cs.icon"
+            :audio-src="cs.audioSrc"
+          />
+        </div>
+        <h3 v-if="noRadioStreams" class="medium-text">no streams for this country</h3>
+        <h4 class="smaller-text">add more streams at <a style="color: white;"
+                                                        href="https://github.com/norkator/noiser-extras">github</a>
+        </h4>
       </div>
 
 
@@ -137,6 +150,7 @@
         customStreams: [],
         showUploadBtn: true,
         versionInfo: version,
+        noRadioStreams: false,
       }
     },
     mounted() {
@@ -208,6 +222,7 @@
         return new Date().getFullYear();
       },
       initMap() {
+        const this_ = this;
         let map = am4core.create(this.$refs.chartdiv, am4maps.MapChart);
         map.geodata = am4geodata_worldLow;
         map.projection = new am4maps.projections.Miller();
@@ -228,6 +243,26 @@
 
         const hs = polygonTemplate.states.create("hover");
         hs.properties.fill = am4core.color("#2d3436");
+
+        worldSeries.mapPolygons.template.events.on("hit", function (ev) {
+          this_.mapCountrySelected(ev.target.dataItem.dataContext.name)
+        });
+      },
+      mapCountrySelected(country) {
+        console.log('Country name:', country);
+        const s = this.extraStreamData.filter(s => {
+          return s.country === country;
+        });
+        if (s.length > 0) {
+          this.noRadioStreams = false;
+          this.$emit('pauseAudio');
+          this.customStreams = null;
+          this.customStreams = s[0].streams;
+          this.showUploadBtn = this.customStreams === null;
+        } else {
+          this.customStreams = null;
+          this.noRadioStreams = true;
+        }
       },
     },
     created() {
@@ -289,6 +324,12 @@
     font-size: 24px;
     color: white;
     margin-bottom: 10px;
+  }
+
+  .medium-text {
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    font-size: 16px;
+    color: #170c28;
   }
 
   .smaller-text {
