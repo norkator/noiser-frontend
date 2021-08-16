@@ -226,9 +226,9 @@
         let map = am4core.create(this.$refs.chartdiv, am4maps.MapChart);
         map.geodata = am4geodata_worldLow;
         map.projection = new am4maps.projections.Miller();
-        map.seriesContainer.draggable = false;
-        map.seriesContainer.resizable = false;
-        map.maxZoomLevel = 1;
+        map.seriesContainer.draggable = true;
+        map.seriesContainer.resizable = true;
+        // map.maxZoomLevel = 1;
 
         // Series for World map
         const worldSeries = map.series.push(new am4maps.MapPolygonSeries());
@@ -484,7 +484,7 @@
 
   .chartDiv {
     width: 100%;
-    height: 30vh;
+    height: 35vh;
     cursor: pointer;
   }
 
