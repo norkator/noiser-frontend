@@ -311,6 +311,13 @@
     box-shadow: 0 4px 25px 0 rgba(255, 255, 255, 0.1);
   }
 
+  @media screen and (max-width: 500px) {
+    .mainContentLayout {
+      border-radius: 0;
+      margin: 0;
+    }
+  }
+
   .flexLayout {
     width: 100%;
     display: flex;
@@ -477,8 +484,8 @@
   }
 
   .chartContainer {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 0;
+    margin-right: 0;
     margin-bottom: 10px;
   }
 

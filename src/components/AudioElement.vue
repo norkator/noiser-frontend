@@ -217,6 +217,14 @@
     transition: .1s linear;
   }
 
+  @media screen and (max-width: 500px) {
+    .player-container {
+      min-width: 80px;
+      max-width: 100px;
+    }
+  }
+
+
   .player-container:hover {
     transform: scale(1.1);
   }
