@@ -126,6 +126,7 @@
   import * as am4core from "@amcharts/amcharts4/core";
   import * as am4maps from "@amcharts/amcharts4/maps";
   import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
+  import LocalStorage from "./LocalStorage";
 
 
   const version = require('../package').version;
@@ -137,6 +138,7 @@
       AudioElement,
       TheFooter,
     },
+    mixins: [LocalStorage],
     data() {
       return {
         audioPacks: AudioPack.audioPacks,
@@ -149,13 +151,21 @@
         showUploadBtn: true,
         versionInfo: version,
         noRadioStreams: false,
+        darkModeKey: 'dark-mode',
       }
     },
     mounted() {
+      this.initTheme();
       this.getExtraStreams();
       this.initMap();
     },
     methods: {
+      initTheme() {
+        console.log(this.lsGetValue(this.darkModeKey));
+        if (this.lsGetValue(this.darkModeKey) === 'true') {
+          this.toggleTheme();
+        }
+      },
       _addDarkTheme() {
         let darkThemeLinkEl = document.createElement("link");
         darkThemeLinkEl.setAttribute("rel", "stylesheet");
@@ -175,12 +185,13 @@
         if (!darkThemeLinkEl) {
           this._addDarkTheme();
           document.getElementById('changeThemeBtn').innerHTML = '&#9728;';
+          this.lsSaveValue(this.darkModeKey, true);
         } else {
           this._removeDarkTheme();
           document.getElementById('changeThemeBtn').innerHTML = '&#9790;';
+          this.lsSaveValue(this.darkModeKey, false);
         }
       },
-
       incrementTimer() {
         if (this.timerMinutes < 120) {
           this.timerMinutes += 1;
