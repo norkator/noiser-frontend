@@ -1,9 +1,10 @@
 <template>
-  
+
   <div id="app-container">
     <the-header app-name="Noiser"/>
 
-    <button @click="toggleTheme" aria-label="Toggle themes" class="changeThemeBtn magictime vanishIn" id="changeThemeBtn"> 
+    <button @click="toggleTheme" aria-label="Toggle themes" class="changeThemeBtn magictime vanishIn"
+            id="changeThemeBtn">
       &#9790;
     </button>
 
@@ -125,8 +126,8 @@
 </template>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
-<script>  
-  
+<script>
+
   import TheHeader from "./components/TheHeader.vue";
   import AudioElement from "./components/AudioElement.vue";
   import TheFooter from "./components/TheFooter.vue";
@@ -180,7 +181,7 @@
         parentNode.removeChild(darkThemeLinkEl);
       },
       toggleTheme() {
-       let darkThemeLinkEl = document.querySelector("#dark-theme-style");
+        let darkThemeLinkEl = document.querySelector("#dark-theme-style");
         if (!darkThemeLinkEl) {
           this._addDarkTheme();
           document.getElementById('changeThemeBtn').innerHTML = '&#9728;';
@@ -321,7 +322,7 @@
     src: local("MajorMonoDisplayRegular"), url("./assets/fonts/MajorMonoDisplay-Regular.ttf");
   }
 
- .headerBar {
+  .headerBar {
     background-color: white;
     text-align: center;
     padding: 9px;
@@ -340,7 +341,7 @@
     padding: 9px;
   }
 
-  .changeThemeBtn{    
+  .changeThemeBtn {
     font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
     border: 1px solid #2c3e50;
     background-color: #2d3436;
@@ -355,10 +356,11 @@
     position: relative;
     float: right;
   }
-  
+
   .changeThemeBtn:hover {
     background: #3e4547 radial-gradient(circle, transparent 1%, #3e4547 1%) center/15000%;
   }
+
   #app-container {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -386,13 +388,15 @@
       border-radius: 0;
       margin: 0;
     }
+
     .footerBar {
       margin-top: 50px;
       background-color: white;
       text-align: center;
       padding: 9px;
     }
-    .changeThemeBtn{    
+
+    .changeThemeBtn {
       font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
       border: 1px solid #2c3e50;
       background-color: #2d3436;

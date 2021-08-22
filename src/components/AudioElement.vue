@@ -110,7 +110,7 @@
         } else if (this.hlsPlayerElement !== null) {
           this.hlsPlayer.loadSource(this.audioSrc);
           this.hlsPlayer.attachMedia(this.hlsPlayerElement);
-          this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function() {
+          this.hlsPlayer.on(Hls.Events.MANIFEST_PARSED, function () {
             this.manifestParsed = true;
           });
           this.hlsPlayerElement.play();
