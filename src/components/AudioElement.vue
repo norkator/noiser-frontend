@@ -248,7 +248,6 @@
     width: 35px;
   }
 
-
   /*.player-container:hover span{ */
   .player-container-span-open {
     transform: translateX(-90%);

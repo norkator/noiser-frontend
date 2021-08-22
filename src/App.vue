@@ -1,6 +1,11 @@
 <template>
+  
   <div id="app-container">
     <the-header app-name="Noiser"/>
+
+    <button @click="toggleTheme" aria-label="Toggle themes" class="changeThemeBtn magictime vanishIn" id="changeThemeBtn"> 
+      &#9790;
+    </button>
 
     <section class="mainContentLayout magictime slideDownReturn">
 
@@ -118,8 +123,10 @@
     <the-footer/>
   </div>
 </template>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
-<script>
+<script>  
+  
   import TheHeader from "./components/TheHeader.vue";
   import AudioElement from "./components/AudioElement.vue";
   import TheFooter from "./components/TheFooter.vue";
@@ -158,6 +165,31 @@
       this.initMap();
     },
     methods: {
+      _addDarkTheme() {
+        let darkThemeLinkEl = document.createElement("link");
+        darkThemeLinkEl.setAttribute("rel", "stylesheet");
+        darkThemeLinkEl.setAttribute("href", "/css/darktheme.css");
+        darkThemeLinkEl.setAttribute("id", "dark-theme-style");
+
+        let docHead = document.querySelector("head");
+        docHead.append(darkThemeLinkEl);
+      },
+      _removeDarkTheme() {
+        let darkThemeLinkEl = document.querySelector("#dark-theme-style");
+        let parentNode = darkThemeLinkEl.parentNode;
+        parentNode.removeChild(darkThemeLinkEl);
+      },
+      toggleTheme() {
+       let darkThemeLinkEl = document.querySelector("#dark-theme-style");
+        if (!darkThemeLinkEl) {
+          this._addDarkTheme();
+          document.getElementById('changeThemeBtn').innerHTML = '&#9728;';
+        } else {
+          this._removeDarkTheme();
+          document.getElementById('changeThemeBtn').innerHTML = '&#9790;';
+        }
+      },
+
       incrementTimer() {
         if (this.timerMinutes < 120) {
           this.timerMinutes += 1;
@@ -289,6 +321,44 @@
     src: local("MajorMonoDisplayRegular"), url("./assets/fonts/MajorMonoDisplay-Regular.ttf");
   }
 
+ .headerBar {
+    background-color: white;
+    text-align: center;
+    padding: 9px;
+  }
+
+  .footer {
+    margin-top: -50px;
+    width: 100%;
+    height: 2.3rem; /* Footer height */
+    background-color: white;
+  }
+
+  .footerBar {
+    background-color: white;
+    text-align: center;
+    padding: 9px;
+  }
+
+  .changeThemeBtn{    
+    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+    border: 1px solid #2c3e50;
+    background-color: #2d3436;
+    font-size: 20px;
+    color: white;
+    padding: 8px;
+    width: 80px;
+    border-radius: 200px;
+    cursor: pointer;
+    margin-top: -60px;
+    margin-right: 10px;
+    position: relative;
+    float: right;
+  }
+  
+  .changeThemeBtn:hover {
+    background: #3e4547 radial-gradient(circle, transparent 1%, #3e4547 1%) center/15000%;
+  }
   #app-container {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -315,6 +385,27 @@
     .mainContentLayout {
       border-radius: 0;
       margin: 0;
+    }
+    .footerBar {
+      margin-top: 50px;
+      background-color: white;
+      text-align: center;
+      padding: 9px;
+    }
+    .changeThemeBtn{    
+      font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
+      border: 1px solid #2c3e50;
+      background-color: #2d3436;
+      font-size: 20px;
+      color: white;
+      padding: 8px;
+      width: 50px;
+      border-radius: 200px;
+      cursor: pointer;
+      margin-top: -60px;
+      margin-right: 10px;
+      position: relative;
+      float: right;
     }
   }
 

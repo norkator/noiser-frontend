@@ -11,7 +11,7 @@
     props: [
       'appName'
     ],
-    name: "TheHeader"
+    name: "TheHeader",
   }
 </script>
 
@@ -21,12 +21,6 @@
     font-size: 50px;
     margin-block-start: 0;
     margin-block-end: 0;
-  }
-
-  .headerBar {
-    background-color: white;
-    text-align: center;
-    padding: 10px;
   }
 
 </style>
