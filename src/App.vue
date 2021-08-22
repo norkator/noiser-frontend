@@ -98,15 +98,6 @@
           </div>
         </div>
       </div>
-      <div class="flexLayout">
-        <audio-element
-          v-for="cs in customStreams" v-bind:key="cs.queryKey"
-          :query-key="cs.queryKey"
-          :name="cs.name"
-          :icon="cs.icon"
-          :audio-src="cs.audioSrc"
-        />
-      </div>
       <hr>
 
       <h2 class="pack-name">links</h2>
