@@ -10,9 +10,18 @@
 
     <section class="mainContentLayout magictime slideDownReturn">
 
-      <h2 class="pack-name">radio channels</h2>
+      <h2 class="pack-name">radio streams</h2>
+      <h4 class="smaller-text">choose from map by country</h4>
       <div class="chartContainer">
         <div id="chartdiv" class="chartDiv" ref="chartdiv"></div>
+        <h3 v-if="noRadioStreams" class="medium-text">no streams for this country</h3>
+        <h4 class="smaller-text">or from list</h4>
+        <select class="custom-button" @change="loadStreams($event)">
+          <option value="null">Select...</option>
+          <option v-bind:key="index" v-for="(s, index) in extraStreamData" :value="JSON.stringify(s.streams)">
+            {{s.name}}
+          </option>
+        </select>
         <div class="flexLayout">
           <audio-element
             v-for="cs in customStreams" v-bind:key="cs.queryKey"
@@ -22,7 +31,6 @@
             :audio-src="cs.audioSrc"
           />
         </div>
-        <h3 v-if="noRadioStreams" class="medium-text">no streams for this country</h3>
         <h4 class="smaller-text">add more streams at <a style="color: white;"
                                                         href="https://github.com/norkator/noiser-extras">github</a>
         </h4>
@@ -67,37 +75,18 @@
       </div>
       <hr>
 
-      <h2 class="pack-name">extra</h2>
+      <h2 class="pack-name">upload stream file</h2>
       <div class="flexLayout">
         <div class="dashed-border">
-          <div>
-            <small class="smaller-text">select extra streams -
-              <a style="color: white;" href="https://github.com/norkator/noiser-extras">manage here</a>
-            </small>
-          </div>
-          <select class="custom-button" @change="loadStreams($event)">
-            <option value="null">Select...</option>
-            <option v-bind:key="index" v-for="(s, index) in extraStreamData" :value="JSON.stringify(s.streams)">
-              {{s.name}}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div v-if="showUploadBtn">
-        <div style="margin-bottom: 10px;">
-          <small class="smaller-text">or</small>
-        </div>
-        <div class="flexLayout">
-          <div class="dashed-border">
-            <small class="smaller-text">upload custom streams json -
-              <a style="color: white;" href="http://www.nitramite.com/noiser.html">sample here</a></small>
-            <div class="flexLayout">
-              <input class="custom-button" style="max-width: 240px;" type="file"
-                     v-on:change="uploadStreamsJson($event)">
-            </div>
+          <small class="smaller-text">upload custom streams json -
+            <a style="color: white;" href="http://www.nitramite.com/noiser.html">sample here</a></small>
+          <div class="flexLayout">
+            <input class="custom-button" style="max-width: 240px;" type="file"
+                   v-on:change="uploadStreamsJson($event)">
           </div>
         </div>
       </div>
+
       <hr>
 
       <h2 class="pack-name">links</h2>
@@ -571,7 +560,6 @@
     font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
     border: 1px solid #2c3e50;
     background-color: #282e2f;
-    margin: 5px;
     font-size: 14px;
     color: white;
     padding: 8px;
