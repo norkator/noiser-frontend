@@ -1,35 +1,18 @@
 .headerBar {
   background-color: #2d3436;
-  text-align: center;
-  padding: 9px;
 }
 
 .footer {
-  width: 100%;
-  height: 2.3rem; /* Footer height */
   background-color: #2d3436;
 }
 
 .footerBar {
   background-color: #2d3436;
-  text-align: center;
-  padding: 9px;
 }
 
 .changeThemeBtn {
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  border: 1px solid #2c3e50;
   background-color: white;
-  font-size: 20px;
   color: #2d3436;
-  padding: 8px;
-  width: 80px;
-  border-radius: 200px;
-  cursor: pointer;
-  margin-top: -60px;
-  margin-right: 10px;
-  position: relative;
-  float: right;
 }
 
 .changeThemeBtn:hover {
@@ -39,199 +22,36 @@
 #app-container {
   color: #DE6262;
   background: #000; /* fallback for old browsers */
-
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh; /* will cover the 100% of viewport */
-  overflow: hidden;
-  display: block;
-  position: relative;
 }
 
 .mainContentLayout {
   background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 25px 0 rgba(255, 255, 255, 0.1);
-
-  text-align: center;
-  border-radius: 20px;
-  margin: 20px 20px 60px 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 @media screen and (max-width: 500px) {
-  .mainContentLayout {
-    border-radius: 0;
-    margin: 0;
-  }
-
   .footerBar {
-    margin-top: 50px;
     background-color: #2d3436;
-    text-align: center;
-    padding: 9px;
   }
 
   .changeThemeBtn {
-    font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-    border: 1px solid #2c3e50;
     background-color: white;
-    font-size: 20px;
     color: #2d3436;
-    padding: 8px;
-    width: 50px;
-    border-radius: 200px;
-    cursor: pointer;
-    margin-top: -60px;
-    margin-right: 10px;
-    position: relative;
-    float: right;
   }
-}
-
-.flexLayout {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 10px;
 }
 
 .pack-name {
   color: #DE6262;
-
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  font-size: 24px;
-  margin-bottom: 10px;
 }
 
-.medium-text {
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  font-size: 16px;
-  color: #170c28;
-}
-
-.smaller-text {
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  font-size: 12px;
-  color: white;
-}
-
-hr {
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  margin: 0 20px 0 20px;
-  border-radius: 5px;
-}
-
-.dashed-border {
-  border-radius: 25px;
-  border-style: dashed;
-  border-color: rgba(255, 255, 255, 0.3);
-  border-width: 2px;
-  margin: 5px;
-  padding: 10px;
-}
-
-.update-dialog {
-  text-align: center;
-  border-radius: 20px;
-  margin: 10px 20px 10px 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 25px 0 rgba(255, 255, 255, 0.1);
-}
 
 .button {
-  min-width: 100px;
-  height: 40px;
   background: white;
-  border-radius: 40px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: .1s linear;
-  margin: 5px 5px 0 5px;
   color: #2d3436;
 }
 
-.button:hover {
-  transform: scale(1.1);
-}
-
-.timer-container {
-  margin-bottom: 10px;
-}
-
-.timer {
-  margin-bottom: 10px;
-  min-width: 150px;
-  max-width: 150px;
-  height: 100px;
-  background: #2d3436;
-  border-radius: 40px;
-  padding: 0 50px;
-  overflow: hidden;
-}
-
-.timer-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.timer-number-button {
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  font-size: 30px;
-  color: white;
-  padding: 10px;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.timer-button {
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  font-size: 16px;
-  color: white;
-  padding: 5px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-
-.timer-input {
-  width: 50px;
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  font-size: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background-color: #2d3436;
-  text-align: center;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
 
 .ripple {
-  background-position: center;
-  transition: background 0.8s;
   color: #DE6262;
 }
 
@@ -241,30 +61,8 @@ input[type=number] {
 
 .ripple:active {
   background-color: #fff;
-  background-size: 100%;
-  transition: background 0s;
 }
 
 .custom-button {
-  font-family: "MajorMonoDisplayRegular", Helvetica, Arial, serif;
-  border: 1px solid #2c3e50;
   background-color: #000;
-  margin: 5px;
-  font-size: 14px;
-  color: white;
-  padding: 8px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.chartContainer {
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 10px;
-}
-
-.chartDiv {
-  width: 100%;
-  height: 35vh;
-  cursor: pointer;
 }
