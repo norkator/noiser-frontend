@@ -1,5 +1,11 @@
 # Noiser Vue.js frontend
 
+Noiser is background sound player project which didn't meet my expectations 
+so I dropped its development efforts. Decided to make this repository public.
+
+Website: https://noiser.io/
+
+
 ## Project setup
 ```
 npm install
